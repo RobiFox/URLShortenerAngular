@@ -1,0 +1,15 @@
+<div style="display: flex; flex-direction: column; height: 100vh;">
+  <div style="min-width: 500px; width: 33%; margin-left: auto; margin-right: auto; padding-top: 24px; flex-grow: 1;">
+    <p-virtualScroller [value]="items" scrollHeight="100vh" [itemSize]="250">
+      <ng-template pTemplate="item" let-urlItem>
+        <p-card header="{{environment.apiUrl}}/Url/{{urlItem.id}}">
+          {{urlItem.url}}
+          <ng-template pTemplate="footer">
+            <p-button label="Delete" icon="pi pi-trash" styleClass="p-button-danger" (onClick)="delete(urlItem)"></p-button>
+            <p-button label="Copy" icon="pi pi-copy" styleClass="p-button-secondary" [style]="{'margin-left': '.5em'}" (onClick)="copyToClipboard(environment.apiUrl + '/Url/' + urlItem.id)"></p-button>
+          </ng-template>
+        </p-card>
+      </ng-template>
+    </p-virtualScroller>
+  </div>
+</div>

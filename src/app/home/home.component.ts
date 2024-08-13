@@ -1,9 +1,8 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {environment} from "../../environments/environment";
-import {Router} from "@angular/router";
-import {Location} from "@angular/common";
 import {CookieService} from "ngx-cookie-service";
+import {GeneratedLinksComponent} from "../generated-links/generated-links.component";
 
 @Component({
   selector: 'app-home',
@@ -13,11 +12,12 @@ import {CookieService} from "ngx-cookie-service";
 export class HomeComponent {
   @ViewChild("spinning") spinning!: ElementRef;
   @ViewChild("urlInput") urlInput!: ElementRef;
+  @ViewChild("links") links!: GeneratedLinksComponent;
 
   dialogVisible: boolean = false;
   dialogText: string = "Lorem ipsum";
 
-  ownerId!: string;
+  public ownerId!: string;
 
   constructor(private http: HttpClient, private cookieService: CookieService) {
   }
@@ -53,6 +53,8 @@ export class HomeComponent {
           return;
         }
         this.showDialog(`Your short url is available at ${environment.apiUrl}/Url/${res.body.id}`);
+        //this.links.items.push({id: res.body.id, url: this.urlInput.nativeElement.value});
+        this.links.items = [{id: res.body.id, url: this.urlInput.nativeElement.value}, ...this.links.items];
         console.log(res);
       },
       error: err => {

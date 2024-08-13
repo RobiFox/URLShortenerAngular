@@ -10,11 +10,22 @@ import {Button} from "primeng/button";
 import {FormsModule} from "@angular/forms";
 import {HttpClient, provideHttpClient} from "@angular/common/http";
 import {DialogModule} from "primeng/dialog";
+import { GeneratedLinksComponent } from './generated-links/generated-links.component';
+import {DataViewModule} from "primeng/dataview";
+import {DragDropModule} from "primeng/dragdrop";
+import {ListboxModule} from "primeng/listbox";
+import {CardModule} from "primeng/card";
+import {MessagesModule} from "primeng/messages";
+import {MessageModule} from "primeng/message";
+import {MessageService} from "primeng/api";
+import {ClipboardModule} from "ngx-clipboard";
+import {VirtualScrollerModule} from "primeng/virtualscroller";
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    GeneratedLinksComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -23,10 +34,19 @@ import {DialogModule} from "primeng/dialog";
     InputTextModule,
     Button,
     FormsModule,
-    DialogModule
+    DialogModule,
+    DataViewModule,
+    DragDropModule,
+    ListboxModule,
+    CardModule,
+    MessagesModule,
+    MessageModule,
+    ClipboardModule,
+    VirtualScrollerModule
   ],
   providers: [
-    provideHttpClient()
+    provideHttpClient(),
+    MessageService
   ],
   bootstrap: [AppComponent]
 })
