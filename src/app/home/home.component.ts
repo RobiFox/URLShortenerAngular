@@ -3,6 +3,7 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {Router} from "@angular/router";
 import {Location} from "@angular/common";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-home',
@@ -16,7 +17,18 @@ export class HomeComponent {
   dialogVisible: boolean = false;
   dialogText: string = "Lorem ipsum";
 
-  constructor(private http: HttpClient, private router: Router, private location: Location) {
+  ownerId!: string;
+
+  constructor(private http: HttpClient, private cookieService: CookieService) {
+  }
+
+  ngOnInit() {
+    if(!this.cookieService.check("owner")) {
+      this.ownerId = crypto.randomUUID();
+    } else {
+      this.ownerId = this.cookieService.get("owner");
+    }
+    this.cookieService.set("owner", this.ownerId, 365); // renew cookie expiry date
   }
 
   shortenUrl() {
@@ -31,7 +43,7 @@ export class HomeComponent {
 
     const params = new HttpParams()
       .set('url', this.urlInput.nativeElement.value)
-      .set('owner', 'me');
+      .set('owner', this.ownerId);
 
     this.http.post<any>(`${environment.apiUrl}/Url`, null, {params, observe: "response"}).subscribe({
       next: res => {
