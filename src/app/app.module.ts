@@ -6,6 +6,10 @@ import { AppComponent } from './app.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {InputTextModule} from "primeng/inputtext";
 import { HomeComponent } from './home/home.component';
+import {Button} from "primeng/button";
+import {FormsModule} from "@angular/forms";
+import {HttpClient, provideHttpClient} from "@angular/common/http";
+import {DialogModule} from "primeng/dialog";
 
 @NgModule({
   declarations: [
@@ -16,9 +20,14 @@ import { HomeComponent } from './home/home.component';
     BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,
-    InputTextModule
+    InputTextModule,
+    Button,
+    FormsModule,
+    DialogModule
   ],
-  providers: [],
+  providers: [
+    provideHttpClient()
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
